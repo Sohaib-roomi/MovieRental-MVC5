@@ -1,0 +1,43 @@
+﻿@model IEnumerable<MovieRentalApp.Models.Movies>
+
+@{
+    ViewBag.Title = "Movies";
+}
+
+<h2>Movies</h2>
+<p>
+    @Html.ActionLink("Add New Movie", "AddNewMovie", "Movies", null, new { @class = "btn btn-primary" })
+</p>
+
+@if (!Model.Any())
+{
+    <p>No movies to rent</p>
+}
+else
+{
+    <table class="table table-bordered table-hover">
+
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Genre</th>
+                <th>Action</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var mov in Model)
+            {
+                <tr>
+
+                    <td>@Html.ActionLink(mov.Name, "Details", "Movies", new { Id = mov.Id }, null)</td>
+                    <td>@mov.Genre.Name</td>
+                    <td>@Html.ActionLink("Edit", "EditMov", "Movies", new { Id = mov.Id }, null) || 
+                        @Html.ActionLink("Delete", "Delete", "Movies", new {Id = mov.Id }, null)
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+}
